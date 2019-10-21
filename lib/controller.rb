@@ -5,16 +5,17 @@ class ApplicationController < Sinatra::Base
   erb :index, locals: {gossips: Gossip.all}
   end
 
-  get 'hello/:name' do 
-    # matches "GET /hello/foo" and "GET /hello/bar"
-    # params['name'] is 'foo' or 'bar'
-    #"Hello #{params['name']}"
-  end 
-
   get '/gossips/new/' do 
     erb :new_gossip 
+    redirect '/'
   end
 
+	get '/gossips/:id/' do  
+	x = Gossip.find(params['id'])
+	puts x.author
+	erb :show, locals: {gossip: x}
+    
+  end 
 
   post '/gossips/new/' do
     Gossip.new(params["gossip_author"], params["gossip_content"]).save

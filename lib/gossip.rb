@@ -20,4 +20,8 @@ attr_accessor :author, :content
         end
     return all_gossips
     end 
+
+    def self.find(id)
+    self.all[id.to_i] #toute la classe gossip prend moi chaque id
+    end 
 end 
